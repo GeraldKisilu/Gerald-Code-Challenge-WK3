@@ -146,15 +146,19 @@ function handleBuyTicket(e) {
   // Get the number of remaining tickets
     const ticketDiv = document.querySelector("#ticket-num");
     const tickets = ticketDiv.textContent.split(" ")[0];
+    // If there are available tickets, decrement the count
     if (tickets > 0) {
         ticketDiv.textContent = tickets - 1 + " remaining tickets";
+        // If no tickets are available, display an alert
     } else if (tickets == 0) {
-        alert("No more tickets!");
+        alert("Tickets Sold Out!");
         e.target.classList.add("sold-out");
         e.target.classList.remove("orange");
     }
-}
+};
+console.log(handleMovieClick);
 
+// Declare a function to handle deleting a movie from the server
 function handleDeleteMovie(movieId) {
     // Send DELETE request to server to delete the film
     fetch(`${filmEndpoints}/${movieId}`, {
@@ -167,6 +171,7 @@ function handleDeleteMovie(movieId) {
             if (movieElement) {
                 movieElement.remove();
             }
+        // If deletion fails, log an error message
         } else {
             console.error('Failed to delete movie');
         }
@@ -175,6 +180,7 @@ function handleDeleteMovie(movieId) {
         console.error('Error deleting movie:', error);
     });
 };
+console.log(handleDeleteMovie);
 
 
 
