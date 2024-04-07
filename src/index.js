@@ -121,38 +121,80 @@ function handleBuyTicket(e) {
     }
 };
 
-// Function to handle buying a ticket
-function buyTicket(filmId) {
-    // Send PATCH request to update tickets_sold count
-    $.ajax({
-      url: `/films/${filmId}`,
-      type: 'PATCH',
-      contentType: 'application/json',
-      data: JSON.stringify({ tickets_sold: currentTicketsSold + 1 }), // Assuming you're adding one ticket
-      success: function(updatedFilm) {
-        // Update UI with new ticket count
-        updateTicketCount(updatedFilm.tickets_sold);
-      },
-      error: function(error) {
-        console.error('Error buying ticket:', error);
-      }
+// // Function to handle buying a ticket
+// function buyTicket(filmId) {
+//     // Send PATCH request to update tickets_sold count
+//     $.ajax({
+//       url: `/films/${filmId}`,
+//       type: 'PATCH',
+//       contentType: 'application/json',
+//       data: JSON.stringify({ tickets_sold: currentTicketsSold + 1 }), // Assuming you're adding one ticket
+//       success: function(updatedFilm) {
+//         // Update UI with new ticket count
+//         updateTicketCount(updatedFilm.tickets_sold);
+//       },
+//       error: function(error) {
+//         console.error('Error buying ticket:', error);
+//       }
+//     });
+//   }
+
+
+
+
+
+  
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const buyTicketButton = document.getElementById('buy-ticket-btn');
+    const ticketCountElement = document.getElementById('ticket-count');
+    
+    // Event listener for Buy Ticket button
+    buyTicketButton.addEventListener('click', function() {
+      // Send request to backend to purchase ticket
+      purchaseTicket()
+        .then(updatedTicketCount => {
+          // Update frontend with updated ticket count
+          ticketCountElement.textContent = updatedTicketCount;
+        })
+        .catch(error => {
+          console.error('Error purchasing ticket:', error);
+        });
     });
-  }
-  
-  // Function to update ticket count in UI
-  function updateTicketCount(newCount) {
-    // Update UI with new ticket count
-    $('#ticket-count').text(newCount);
-  }
-  
-  // Event listener for Buy Ticket button
-  $('#buy-ticket-btn').click(function() {
-    // Check if tickets are available
-    if (currentTicketsSold < filmCapacity) {
-      // Buy ticket
-      buyTicket(filmId);
-    } else {
-      alert('Sorry, tickets are sold out!');
+    
+    // Function to simulate purchasing a ticket
+    function purchaseTicket() {
+      // Simulate sending request to backend (replace with actual AJAX request)
+      return new Promise((resolve, reject) => {
+        // In this example, we'll just decrement the ticket count by 1
+        let currentTicketCount = parseInt(ticketCountElement.textContent);
+        if (currentTicketCount > 0) {
+          currentTicketCount--;
+          resolve(currentTicketCount);
+        } else {
+          reject('No available tickets');
+        }
+      });
     }
   });
+  
+
+
+  
+//   // Function to update ticket count in UI
+//   function updateTicketCount(newCount) {
+//     // Update UI with new ticket count
+//     $('#ticket-count').text(newCount);
+//   }
+  
+//   // Event listener for Buy Ticket button
+//   $('#buy-ticket-btn').click(function() {
+//     // Check if tickets are available
+//     if (currentTicketsSold < filmCapacity) {
+//       // Buy ticket
+//       buyTicket(filmId);
+//     } else {
+//       alert('Sorry, tickets are sold out!');
+//     }
+//   });
   
