@@ -66,3 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     displayMoviesMenu();
 });
+
+
+// Your code here
+const db = "http://localhost:3000/films"
+
+document.addEventListener("DOMContentLoaded", () => {
+    getMovies();
+    document.querySelector("#buy-ticket").addEventListener("click", handleBuyTicket);
+});
+
+
