@@ -67,9 +67,9 @@
 // });
 
 
-// Your code here
-// Declare your function(filmEndponits)
-const filmEndponits = "http://localhost:3000/films"
+//Your code here
+//Declare your function(filmEndponits)
+const filmEndpoints = "http://localhost:3000/films";
 
 document.addEventListener("DOMContentLoaded", () => {
     getMovies();
@@ -77,28 +77,41 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function getMovies() {
-    fetch(filmEndponits)
+    fetch(filmEndpoints)
     .then(res => res.json())
     .then(movies => {
-        movies.forEach(movie => {renderMovieList(movie)})
+        movies.forEach(movie => {
+            renderMovieList(movie);
+        });
         const firstMovie = document.querySelector("#id1");
         firstMovie.dispatchEvent(new Event("click"));
-    })
-};
+    });
+}
 
 function renderMovieList(movie) {
     const li = document.createElement("li");
     li.textContent = `${movie.title}`;
     li.id = "id" + movie.id;
+    
+    // Create delete button
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.classList.add("delete-btn");
+    deleteButton.addEventListener("click", (event) => {
+        event.stopPropagation(); // Stop propagation to prevent triggering handleMovieClick
+        handleDeleteMovie(movie.id);
+    });
+    li.appendChild(deleteButton);
+    
     const ul = document.querySelector("#films");
     ul.appendChild(li);
     li.classList.add("film");
     li.classList.add('item');
-    li.addEventListener("click", () => {handleMovieClick(movie)})
-};
+    li.addEventListener("click", () => {handleMovieClick(movie)});
+}
 
 function handleMovieClick(movie) {
-    const poster = document.querySelector("img#poster")
+    const poster = document.querySelector("img#poster");
     poster.src = movie.poster;
     poster.alt = movie.title;
     const info = document.querySelector("#showing");
@@ -107,45 +120,69 @@ function handleMovieClick(movie) {
     info.querySelector("#film-info").textContent = movie.description;
     info.querySelector("#showtime").textContent = movie.showtime;
     info.querySelector("#ticket-num").textContent = movie.capacity - movie.tickets_sold + " remaining tickets";
-};
+}
 
 function handleBuyTicket(e) {
     const ticketDiv = document.querySelector("#ticket-num");
     const tickets = ticketDiv.textContent.split(" ")[0];
     if (tickets > 0) {
         ticketDiv.textContent = tickets - 1 + " remaining tickets";
-    }
-    else if (tickets == 0) {
+    } else if (tickets == 0) {
         alert("No more tickets!");
         e.target.classList.add("sold-out");
         e.target.classList.remove("orange");
     }
-};
+}
+
+function handleDeleteMovie(movieId) {
+    // Send DELETE request to server to delete the film
+    fetch(`${filmEndpoints}/${movieId}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (response.ok) {
+            // Remove the film from the list in the frontend
+            const movieElement = document.getElementById("id" + movieId);
+            if (movieElement) {
+                movieElement.remove();
+            }
+        } else {
+            console.error('Failed to delete movie');
+        }
+    })
+    .catch(error => {
+        console.error('Error deleting movie:', error);
+    });
+}
+
+
+
+
 
 // document.addEventListener('DOMContentLoaded', function() {
 //   const filmList = document.getElementById('films');
 
-//   // Event delegation to handle clicks on delete buttons
-//   filmList.addEventListener('click', function(event) {
-//     if (event.target.classList.contains('delete-btn')) {
-//       const filmItem = event.target.closest('li');
-//       const filmId = filmItem.dataset.filmId; // Assuming you have a data attribute for film id
+  // Event delegation to handle clicks on delete buttons
+  // filmList.addEventListener('click', function(event) {
+  //   if (event.target.classList.contains('delete-btn')) {
+  //     const filmItem = event.target.closest('li');
+  //     const filmId = filmItem.dataset.filmId; // Assuming you have a data attribute for film id
 
-//       // Send DELETE request to server
-//       deleteFilm(filmId)
-//         .then(() => {
-//           // Remove film from the list in the frontend
-//           filmItem.remove();
-//         })
-//         .catch(error => {
-//           console.error('Error deleting film:', error);
-//         });
-//     }
-//   });
+  //     // Send DELETE request to server
+  //     deleteFilm(filmId)
+  //       .then(() => {
+  //         // Remove film from the list in the frontend
+  //         filmItem.remove();
+  //       })
+  //       .catch(error => {
+  //         console.error('Error deleting film:', error);
+  //       });
+  //   }
+  // });
 
 
 
-// // Function to handle buying a ticket
+// Function to handle buying a ticket
 // function buyTicket(filmId) {
 //     // Send PATCH request to update tickets_sold count
 //     $.ajax({
@@ -221,4 +258,3 @@ function handleBuyTicket(e) {
 //       alert('Sorry, tickets are sold out!');
 //     }
 //   });
-  
