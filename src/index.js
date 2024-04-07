@@ -68,7 +68,7 @@
 
 
 //Your code here
-//Declare your function(filmEndponits) for accessing the films data
+//Declare your function(filmEndpoints) for accessing the films data
 const filmEndpoints = "http://localhost:3000/films";
 
 // 
@@ -157,6 +157,11 @@ function handleBuyTicket(e) {
     }
 };
 console.log(handleMovieClick);
+
+function updateTicketsSold(movieId, ticketsSold) {
+
+};
+console.log(updateTicketsSold);
 
 // Declare a function to handle deleting a movie from the server
 function handleDeleteMovie(movieId) {
