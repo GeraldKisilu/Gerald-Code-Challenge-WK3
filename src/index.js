@@ -68,7 +68,8 @@
 
 
 // Your code here
-const db = "http://localhost:3000/films"
+// Declare your function(filmEndponits)
+const filmEndponits = "http://localhost:3000/films"
 
 document.addEventListener("DOMContentLoaded", () => {
     getMovies();
@@ -76,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function getMovies() {
-    fetch(db)
+    fetch(filmEndponits)
     .then(res => res.json())
     .then(movies => {
         movies.forEach(movie => {renderMovieList(movie)})
@@ -121,6 +122,29 @@ function handleBuyTicket(e) {
     }
 };
 
+// document.addEventListener('DOMContentLoaded', function() {
+//   const filmList = document.getElementById('films');
+
+//   // Event delegation to handle clicks on delete buttons
+//   filmList.addEventListener('click', function(event) {
+//     if (event.target.classList.contains('delete-btn')) {
+//       const filmItem = event.target.closest('li');
+//       const filmId = filmItem.dataset.filmId; // Assuming you have a data attribute for film id
+
+//       // Send DELETE request to server
+//       deleteFilm(filmId)
+//         .then(() => {
+//           // Remove film from the list in the frontend
+//           filmItem.remove();
+//         })
+//         .catch(error => {
+//           console.error('Error deleting film:', error);
+//         });
+//     }
+//   });
+
+
+
 // // Function to handle buying a ticket
 // function buyTicket(filmId) {
 //     // Send PATCH request to update tickets_sold count
@@ -145,38 +169,38 @@ function handleBuyTicket(e) {
 
   
 
-  document.addEventListener('DOMContentLoaded', function() {
-    const buyTicketButton = document.getElementById('buy-ticket-btn');
-    const ticketCountElement = document.getElementById('ticket-count');
+//   document.addEventListener('DOMContentLoaded', function() {
+//     const buyTicketButton = document.getElementById('buy-ticket-btn');
+//     const ticketCountElement = document.getElementById('ticket-count');
     
-    // Event listener for Buy Ticket button
-    buyTicketButton.addEventListener('click', function() {
-      // Send request to backend to purchase ticket
-      purchaseTicket()
-        .then(updatedTicketCount => {
-          // Update frontend with updated ticket count
-          ticketCountElement.textContent = updatedTicketCount;
-        })
-        .catch(error => {
-          console.error('Error purchasing ticket:', error);
-        });
-    });
+//     // Event listener for Buy Ticket button
+//     buyTicketButton.addEventListener('click', function() {
+//       // Send request to backend to purchase ticket
+//       purchaseTicket()
+//         .then(updatedTicketCount => {
+//           // Update frontend with updated ticket count
+//           ticketCountElement.textContent = updatedTicketCount;
+//         })
+//         .catch(error => {
+//           console.error('Error purchasing ticket:', error);
+//         });
+//     });
     
-    // Function to simulate purchasing a ticket
-    function purchaseTicket() {
-      // Simulate sending request to backend (replace with actual AJAX request)
-      return new Promise((resolve, reject) => {
-        // In this example, we'll just decrement the ticket count by 1
-        let currentTicketCount = parseInt(ticketCountElement.textContent);
-        if (currentTicketCount > 0) {
-          currentTicketCount--;
-          resolve(currentTicketCount);
-        } else {
-          reject('No available tickets');
-        }
-      });
-    }
-  });
+//     // Function to simulate purchasing a ticket
+//     function purchaseTicket() {
+//       // Simulate sending request to backend (replace with actual AJAX request)
+//       return new Promise((resolve, reject) => {
+//         // In this example, we'll just decrement the ticket count by 1
+//         let currentTicketCount = parseInt(ticketCountElement.textContent);
+//         if (currentTicketCount > 0) {
+//           currentTicketCount--;
+//           resolve(currentTicketCount);
+//         } else {
+//           reject('No available tickets');
+//         }
+//       });
+//     }
+//   });
   
 
 
