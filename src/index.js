@@ -83,7 +83,7 @@ function getMovies() {
         const firstMovie = document.querySelector("#id1");
         firstMovie.dispatchEvent(new Event("click"));
     })
-}
+};
 
 function renderMovieList(movie) {
     const li = document.createElement("li");
@@ -94,7 +94,7 @@ function renderMovieList(movie) {
     li.classList.add("film");
     li.classList.add('item');
     li.addEventListener("click", () => {handleMovieClick(movie)})
-}
+};
 
 function handleMovieClick(movie) {
     const poster = document.querySelector("img#poster")
@@ -106,17 +106,53 @@ function handleMovieClick(movie) {
     info.querySelector("#film-info").textContent = movie.description;
     info.querySelector("#showtime").textContent = movie.showtime;
     info.querySelector("#ticket-num").textContent = movie.capacity - movie.tickets_sold + " remaining tickets";
-}
+};
 
-// function handleBuyTicket(e) {
-//     const ticketDiv = document.querySelector("#ticket-num");
-//     const tickets = ticketDiv.textContent.split(" ")[0];
-//     if (tickets > 0) {
-//         ticketDiv.textContent = tickets - 1 + " remaining tickets";
+function handleBuyTicket(e) {
+    const ticketDiv = document.querySelector("#ticket-num");
+    const tickets = ticketDiv.textContent.split(" ")[0];
+    if (tickets > 0) {
+        ticketDiv.textContent = tickets - 1 + " remaining tickets";
+    }
+    else if (tickets == 0) {
+        alert("No more tickets!");
+        e.target.classList.add("sold-out");
+        e.target.classList.remove("orange");
+    }
+};
+
+// Function to handle buying a ticket
+function buyTicket(filmId) {
+    // Send PATCH request to update tickets_sold count
+    $.ajax({
+      url: `/films/${filmId}`,
+      type: 'PATCH',
+      contentType: 'application/json',
+      data: JSON.stringify({ tickets_sold: currentTicketsSold + 1 }), // Assuming you're adding one ticket
+      success: function(updatedFilm) {
+        // Update UI with new ticket count
+        updateTicketCount(updatedFilm.tickets_sold);
+      },
+      error: function(error) {
+        console.error('Error buying ticket:', error);
+      }
+    });
+  }
+  
+//   // Function to update ticket count in UI
+//   function updateTicketCount(newCount) {
+//     // Update UI with new ticket count
+//     $('#ticket-count').text(newCount);
+//   }
+  
+//   // Event listener for Buy Ticket button
+//   $('#buy-ticket-btn').click(function() {
+//     // Check if tickets are available
+//     if (currentTicketsSold < filmCapacity) {
+//       // Buy ticket
+//       buyTicket(filmId);
+//     } else {
+//       alert('Sorry, tickets are sold out!');
 //     }
-//     else if (tickets == 0) {
-//         alert("No more tickets!");
-//         e.target.classList.add("sold-out");
-//         e.target.classList.remove("orange");
-//     }
-// }
+//   });
+  
