@@ -158,7 +158,13 @@ function handleBuyTicket(e) {
 };
 console.log(handleMovieClick);
 
+// Declare a function to update the tickets sold
 function updateTicketsSold(movieId, ticketsSold) {
+    fetch(`${filmEndpoints}/${movieId}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        }
 
 };
 console.log(updateTicketsSold);
