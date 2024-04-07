@@ -145,14 +145,14 @@ function buyTicket(filmId) {
     $('#ticket-count').text(newCount);
   }
   
-//   // Event listener for Buy Ticket button
-//   $('#buy-ticket-btn').click(function() {
-//     // Check if tickets are available
-//     if (currentTicketsSold < filmCapacity) {
-//       // Buy ticket
-//       buyTicket(filmId);
-//     } else {
-//       alert('Sorry, tickets are sold out!');
-//     }
-//   });
+  // Event listener for Buy Ticket button
+  $('#buy-ticket-btn').click(function() {
+    // Check if tickets are available
+    if (currentTicketsSold < filmCapacity) {
+      // Buy ticket
+      buyTicket(filmId);
+    } else {
+      alert('Sorry, tickets are sold out!');
+    }
+  });
   
