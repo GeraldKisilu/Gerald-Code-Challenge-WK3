@@ -94,7 +94,8 @@ function getMovies() {
         const firstMovie = document.querySelector("#id1");
         firstMovie.dispatchEvent(new Event("click"));
     });
-}
+};
+console.log(getMovies);
 
 // Declare function to render a movie in the list
 function renderMovieList(movie) {
@@ -119,10 +120,15 @@ function renderMovieList(movie) {
     ul.appendChild(li);
     li.classList.add("film");
     li.classList.add('item');
-    li.addEventListener("click", () => {handleMovieClick(movie)});
-}
 
+    // Attach event listener to the movie list item to handle click events
+    li.addEventListener("click", () => {handleMovieClick(movie)});
+};
+console.log(renderMovieList);
+
+// Declare a function to handle click events on a movie in the list
 function handleMovieClick(movie) {
+  // Update the movie details displayed in the User Interface
     const poster = document.querySelector("img#poster");
     poster.src = movie.poster;
     poster.alt = movie.title;
@@ -132,9 +138,12 @@ function handleMovieClick(movie) {
     info.querySelector("#film-info").textContent = movie.description;
     info.querySelector("#showtime").textContent = movie.showtime;
     info.querySelector("#ticket-num").textContent = movie.capacity - movie.tickets_sold + " remaining tickets";
-}
+};
+console.log(handleMovieClick);
 
+// Declare a function to handle buying tickets events on a movie in the list
 function handleBuyTicket(e) {
+  // Get the number of remaining tickets
     const ticketDiv = document.querySelector("#ticket-num");
     const tickets = ticketDiv.textContent.split(" ")[0];
     if (tickets > 0) {
