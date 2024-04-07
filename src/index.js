@@ -164,7 +164,19 @@ function updateTicketsSold(movieId, ticketsSold) {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "tickets_sold": ticketsSold
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update tickets sold');
         }
+    })
+    .catch(error => {
+        console.error('Error updating tickets sold:', error);
+    });
 
 };
 console.log(updateTicketsSold);
