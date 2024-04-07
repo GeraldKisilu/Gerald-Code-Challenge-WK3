@@ -1,9 +1,10 @@
 body {
   background-color: #ebebeb;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .heading {
-  background-color: #333333;
+  background-color: #a3740d;
   margin-bottom: 20px;
   padding: 5px 0px 5px 15px;
 }
@@ -11,12 +12,12 @@ body {
 .title {
   background-color: #333333;
   padding: 5px;
-  color: white;
+  color: rgb(165, 132, 22);
 }
 
 #runtime {
   background-color: #333333;
-  color: #3e8fde;
+  color: #948715;
   padding: 0px 0px 5px 5px;
 }
 
