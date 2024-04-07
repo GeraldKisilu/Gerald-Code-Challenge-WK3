@@ -68,26 +68,35 @@
 
 
 //Your code here
-//Declare your function(filmEndponits)
+//Declare your function(filmEndponits) for accessing the films data
 const filmEndpoints = "http://localhost:3000/films";
 
+// 
 document.addEventListener("DOMContentLoaded", () => {
+  //Fetch Movies from the server using the given url
     getMovies();
+
+    // Attach event listener to the "Buy Ticket" button
     document.querySelector("#buy-ticket").addEventListener("click", handleBuyTicket);
 });
 
+// Declare a function to fetch movies from the server
 function getMovies() {
     fetch(filmEndpoints)
     .then(res => res.json())
     .then(movies => {
+      // For each movie received from the server, render it in the UI
         movies.forEach(movie => {
             renderMovieList(movie);
         });
+
+        // Add a click event on the first movie to display its details
         const firstMovie = document.querySelector("#id1");
         firstMovie.dispatchEvent(new Event("click"));
     });
 }
 
+// Declare aunction to render a movie in the list
 function renderMovieList(movie) {
     const li = document.createElement("li");
     li.textContent = `${movie.title}`;
@@ -153,7 +162,7 @@ function handleDeleteMovie(movieId) {
     .catch(error => {
         console.error('Error deleting movie:', error);
     });
-}
+};
 
 
 
