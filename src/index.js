@@ -138,6 +138,11 @@ function handleMovieClick(movie) {
     info.querySelector("#film-info").textContent = movie.description;
     info.querySelector("#showtime").textContent = movie.showtime;
     info.querySelector("#ticket-num").textContent = movie.capacity - movie.tickets_sold + " remaining tickets";
+
+    // Calculate and display remaining tickets
+    const ticketDiv = info.querySelector ("#ticket-num");
+    const remainingTickets = movie.capacity - movie.tickets_sold;
+    ticketDiv.ticketContent = remainingTickets + "remaining tickets"; 
 };
 console.log(handleMovieClick);
 
@@ -147,22 +152,16 @@ function handleBuyTicket(e) {
     const ticketDiv = document.querySelector("#ticket-num");
     // Get the number of remaining tickets
     const tickets = ticketDiv.textContent.split(" ")[0];
-    // Get the movie ID
-    const movieId = document.querySelector("li.film.active").id.slice(2);
+     // Decrement the count if the tickets are available
     if (tickets > 0) {
-        tickets -= 1; // Decrement the count
+        tickets -= 1;
         ticketDiv.textContent = tickets + " remaining tickets";
-        if (tickets === 0) {
-            // Update the button text to "Sold Out"
-            e.target.textContent = "Sold Out";
-            // Add class "sold-out" to the film item
-            const filmItem = document.querySelector("#id" + movieId);
-            filmItem.classList.add("sold-out");
-        }
-        // Update tickets sold on the server
-        updateTicketsSold(movieId, tickets);
+    }else if (tickets == 0) {
+        alert("Tickets Sold-out!!");
+    // Change the style of the "Buy Ticket" button to indicate it's sold out
+        e.target.classList.add("sold-out");
+        e.target.textContent = "Sold Out";
     }
-
 };
 console.log(handleBuyTicket);
 
