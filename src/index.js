@@ -145,7 +145,11 @@ console.log(handleMovieClick);
 function handleBuyTicket(e) {
   // Get the number of remaining tickets
     const ticketDiv = document.querySelector("#ticket-num");
+    // Get the number of remaining tickets
     const tickets = ticketDiv.textContent.split(" ")[0];
+
+    // Get the movie ID
+    const movieId = document.querySelector("li.film.active").id.slice(2);
     // If there are available tickets, decrement the count
     if (tickets > 0) {
         ticketDiv.textContent = tickets - 1 + " remaining tickets";
@@ -156,7 +160,7 @@ function handleBuyTicket(e) {
         e.target.classList.remove("orange");
     }
 };
-console.log(handleMovieClick);
+console.log(handleBuyTicket);
 
 // Declare a function to update the tickets sold
 function updateTicketsSold(movieId, ticketsSold) {
