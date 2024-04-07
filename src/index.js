@@ -139,11 +139,11 @@ function buyTicket(filmId) {
     });
   }
   
-//   // Function to update ticket count in UI
-//   function updateTicketCount(newCount) {
-//     // Update UI with new ticket count
-//     $('#ticket-count').text(newCount);
-//   }
+  // Function to update ticket count in UI
+  function updateTicketCount(newCount) {
+    // Update UI with new ticket count
+    $('#ticket-count').text(newCount);
+  }
   
 //   // Event listener for Buy Ticket button
 //   $('#buy-ticket-btn').click(function() {
