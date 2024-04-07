@@ -147,18 +147,22 @@ function handleBuyTicket(e) {
     const ticketDiv = document.querySelector("#ticket-num");
     // Get the number of remaining tickets
     const tickets = ticketDiv.textContent.split(" ")[0];
-
     // Get the movie ID
     const movieId = document.querySelector("li.film.active").id.slice(2);
-    // If there are available tickets, decrement the count
     if (tickets > 0) {
-        ticketDiv.textContent = tickets - 1 + " remaining tickets";
-        // If no tickets are available, display an alert
-    } else if (tickets == 0) {
-        alert("Tickets Sold Out!");
-        e.target.classList.add("sold-out");
-        e.target.classList.remove("orange");
+        tickets -= 1; // Decrement the count
+        ticketDiv.textContent = tickets + " remaining tickets";
+        if (tickets === 0) {
+            // Update the button text to "Sold Out"
+            e.target.textContent = "Sold Out";
+            // Add class "sold-out" to the film item
+            const filmItem = document.querySelector("#id" + movieId);
+            filmItem.classList.add("sold-out");
+        }
+        // Update tickets sold on the server
+        updateTicketsSold(movieId, tickets);
     }
+
 };
 console.log(handleBuyTicket);
 
