@@ -85,7 +85,7 @@ function getMovies() {
     fetch(filmEndpoints)
     .then(res => res.json())
     .then(movies => {
-      // For each movie received from the server, render it in the UI
+      // For each movie received from the server, render it in the User Interface
         movies.forEach(movie => {
             renderMovieList(movie);
         });
@@ -96,7 +96,7 @@ function getMovies() {
     });
 }
 
-// Declare aunction to render a movie in the list
+// Declare function to render a movie in the list
 function renderMovieList(movie) {
     const li = document.createElement("li");
     li.textContent = `${movie.title}`;
@@ -107,11 +107,14 @@ function renderMovieList(movie) {
     deleteButton.textContent = "Delete";
     deleteButton.classList.add("delete-btn");
     deleteButton.addEventListener("click", (event) => {
-        event.stopPropagation(); // Stop propagation to prevent triggering handleMovieClick
+      // Stop event propagation to avoid triggering handleMovieClick
+        event.stopPropagation(); 
+      // Call the function to handle movie deletion when the delete button is clicked
         handleDeleteMovie(movie.id);
     });
     li.appendChild(deleteButton);
     
+    // Append(add details) the movie list item to the films list
     const ul = document.querySelector("#films");
     ul.appendChild(li);
     li.classList.add("film");
